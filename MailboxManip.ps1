@@ -21,10 +21,11 @@ function mailtype {
 	Write-Output "| [1] User | [2] Shared | [0] Exit |"
 	Write-Output ""
 	switch(readline){
-		1 {$typeReturn = "Regular"; return $typeReturn}
-		2 {$typeReturn = "Shared"; return $typeReturn}
-		0 {return}
+		1 {$typeReturn = "Regular"; break}
+		2 {$typeReturn = "Shared"; break}
+		0 {break}
 	}
+	return $typeReturn
 }
 # Mailbox Menu.
 # The menu function also runs getuser to return the $unReturn varilable containing the user mailbox array /
@@ -41,7 +42,7 @@ function modmailbox {
 	Write-Output ""
 	switch(readline){
 		1 {mailname}
-		2 {mailtype; Set-Mailbox -Identity $targuser -Type $typeReturn; Write-Output "Mailbox of " + $targuser + " has been set to " + $typeReturn + "."}
+		2 {mailtype; Set-Mailbox -Identity $unReturn.Identity -Type $typeReturn; Write-Output ("Mailbox of " + $unReturn.DisplayName + " has been set to " + $typeReturn + ".")}
 		4 {mailforward}
 	}
 }
